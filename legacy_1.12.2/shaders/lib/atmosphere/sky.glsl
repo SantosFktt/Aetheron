@@ -2,7 +2,7 @@
 #define AETHERON_SKY_GLSL
 
 // ==============================================================================
-// AETHERON SHADERS (Legacy 1.12.2 GLSL 120) — Complete Sky Dome, Sun, Phase-Shaded Moon, Stars & Dimensions
+// AETHERON SHADERS — Complete Sky Dome, Sun, Phase-Shaded Moon, Stars & Dimensions
 // ==============================================================================
 
 // Procedural solar disc with physical limb darkening & atmospheric aureole
@@ -14,16 +14,16 @@ vec3 renderSunDisc(vec3 viewDir, vec3 sunDir) {
     float horizonVis = smoothstep(-0.04, 0.03, sunDir.y);
     float weatherFade = 1.0 - getRainMix() * 0.92;
 
-    // Soft solar corona / aureole
-    float corona = pow(max(cosTheta, 0.0), 420.0) * 1.4 + pow(max(cosTheta, 0.0), 48.0) * 0.16;
+    // Delicate focused solar corona (crisp sun without washing out blue sky)
+    float corona = pow(max(cosTheta, 0.0), 650.0) * 1.15 + pow(max(cosTheta, 0.0), 140.0) * 0.10;
 
     // Sharp limb-darkened solar photosphere
     float discEdge = smoothstep(sunAngularCos - 0.00018, sunAngularCos + 0.00008, cosTheta);
     float rNorm = clamp((1.0 - cosTheta) / max(1.0 - sunAngularCos, 1e-6), 0.0, 1.0);
     float mu = sqrt(max(1.0 - rNorm, 0.0));
-    float limbDarkening = mix(0.45, 1.0, pow(mu, 0.55));
+    float limbDarkening = mix(0.50, 1.0, pow(mu, 0.55));
 
-    vec3 discColor = vec3(1.05, 0.98, 0.90) * sunTrans * (discEdge * limbDarkening * 28.0 + corona * 2.2);
+    vec3 discColor = vec3(1.06, 0.99, 0.90) * sunTrans * (discEdge * limbDarkening * 22.0 + corona * 1.5);
     return discColor * horizonVis * weatherFade * SUN_INTENSITY;
 }
 

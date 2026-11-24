@@ -2,10 +2,11 @@
 #define AETHERON_TONEMAP_GLSL
 
 // ==============================================================================
-// AETHERON SHADERS (Legacy 1.12.2 GLSL 120) — Filmic Tonemapping, Exposure, Natural Color Grading & Vignette
+// AETHERON SHADERS v1.1 (Legacy 1.12.2 GLSL 120) — Filmic Tonemapping, Exposure, Color Grading & Vignette
+// Clean shadow preservation (zero black crush) & natural highlight roll-off
 // ==============================================================================
 
-// 0: ACES Filmic (Stephen Hill RRT+ODT matrix fit — natural highlight desaturation)
+// 0: ACES Filmic (Stephen Hill RRT+ODT fit with gentle shadow lift so shadows stay crisp)
 vec3 tonemapACES(vec3 x) {
     mat3 ACESInputMat = mat3(
         0.59719, 0.07600, 0.02840,
@@ -18,6 +19,10 @@ vec3 tonemapACES(vec3 x) {
         -0.07367, -0.00605,  1.07602
     );
 
+    // Subtle shadow-toe rescue before ACES RRT prevents dark grass/stone from crushing
+    x = max(x, vec3(0.0));
+    x = x * 1.08 + 0.003 * (1.0 - exp(-x * 12.0));
+
     x = ACESInputMat * x;
     vec3 a = x * (x + 0.0245786) - 0.000090537;
     vec3 b = x * (0.983729 * x + 0.4329510) + 0.238081;
@@ -25,7 +30,7 @@ vec3 tonemapACES(vec3 x) {
     return clamp(ACESOutputMat * x, 0.0, 1.0);
 }
 
-// 1: AgX-Inspired Neutral Filmic (preserves crisp sky cyan & golden sunset without hue shift)
+// 1: AgX-Inspired Neutral Filmic
 vec3 tonemapAgX(vec3 col) {
     mat3 agxInset = mat3(
         0.842479, 0.042328, 0.042375,
@@ -53,17 +58,15 @@ vec3 tonemapAgX(vec3 col) {
     return clamp(pow(max(col, vec3(0.0)), vec3(2.2)), 0.0, 1.0);
 }
 
-// 2: Aetheron Signature Filmic (Photon clarity + Bliss organic roll-off)
+// 2: Aetheron Signature Filmic (Photon clarity + Bliss luminous open shadows)
 vec3 tonemapAetheron(vec3 x) {
-    // Gentle highlight path-to-white desaturation before filmic curve
+    x = max(x, vec3(0.0));
     float luma = luminance(x);
-    vec3 desat = mix(x, vec3(luma), smoothstep(1.2, 6.5, luma) * 0.42);
-    const float a = 2.45;
-    const float b = 0.03;
-    const float c = 2.38;
-    const float d = 0.56;
-    const float e = 0.13;
-    return clamp((desat * (a * desat + b)) / max(desat * (c * desat + d) + e, vec3(1e-5)), 0.0, 1.0);
+    vec3 desat = mix(x, vec3(luma), smoothstep(1.3, 6.5, luma) * 0.38);
+    // Soft Reinhard-Filmic hybrid preserves shadow legibility & crisp vibrant sky blues
+    vec3 num = desat * (2.35 * desat + 0.16);
+    vec3 den = desat * (2.25 * desat + 0.82) + 0.08;
+    return clamp(num / max(den, vec3(1e-5)), 0.0, 1.0);
 }
 
 // 3: Uncharted 2 Filmic
@@ -83,7 +86,6 @@ vec3 tonemapUncharted2(vec3 x) {
     return clamp(curr * whiteScale, 0.0, 1.0);
 }
 
-// Select configured tonemap operator
 vec3 applyTonemap(vec3 hdr) {
     #if TONEMAP_OPERATOR == 0
         return tonemapACES(hdr);
@@ -96,7 +98,6 @@ vec3 applyTonemap(vec3 hdr) {
     #endif
 }
 
-// Smooth adaptive exposure factor based on eye skylight & time of day
 float computeAdaptiveExposure() {
     float expMult = EXPOSURE;
     #ifdef AUTO_EXPOSURE
@@ -104,35 +105,31 @@ float computeAdaptiveExposure() {
             float skyAccess = clamp(float(eyeBrightnessSmooth.y) / 240.0, 0.0, 1.0);
             float dayFrac   = getDayFactor();
             float rain      = getRainMix();
-            // Gently boost exposure indoors / at night / in storms without over-brightening caves
-            float sceneBright = mix(0.26, 1.0, dayFrac * mix(1.0, 0.58, rain)) * mix(0.32, 1.0, skyAccess);
-            float autoMult = clamp(mix(1.38, 0.88, sceneBright), 0.84, 1.45);
+            float sceneBright = mix(0.30, 1.0, dayFrac * mix(1.0, 0.65, rain)) * mix(0.36, 1.0, skyAccess);
+            float autoMult = clamp(mix(1.42, 0.96, sceneBright), 0.92, 1.48);
             expMult *= autoMult;
         #elif defined(DIMENSION_NETHER)
-            expMult *= 1.15;
+            expMult *= 1.18;
         #else
-            expMult *= 1.25;
+            expMult *= 1.28;
         #endif
     #endif
     return expMult;
 }
 
-// Natural cinematic color grading (white balance, subtle split-tone, vibrance, saturation, contrast)
 vec3 applyColorGrading(vec3 srgb) {
-    // Color temperature shift
     vec3 tempShift = vec3(1.0 + COLOR_TEMP * 0.28, 1.0 + COLOR_TEMP * 0.04, 1.0 - COLOR_TEMP * 0.28);
     srgb = clamp(srgb * tempShift, 0.0, 1.0);
 
-    // Subtle filmic S-curve contrast around mid-grey (0.5)
+    // Gentle S-curve contrast without crushing deep shadows
     srgb = clamp((srgb - 0.5) * CONTRAST + 0.5, 0.0, 1.0);
 
-    // Subtle natural split toning: cool-slate shadows, warm-ivory highlights (Photon x Bliss balance)
+    // Subtle natural split toning
     float luma = luminance(srgb);
-    vec3 shadowTint    = vec3(0.985, 0.995, 1.020);
-    vec3 highlightTint = vec3(1.015, 1.004, 0.988);
+    vec3 shadowTint    = vec3(0.985, 0.996, 1.018);
+    vec3 highlightTint = vec3(1.014, 1.004, 0.990);
     srgb *= mix(shadowTint, highlightTint, smoothstep(0.15, 0.85, luma));
 
-    // Vibrance (boosts muted colors selectively without clipping saturated reds/greens)
     float maxC = maxOf(srgb);
     float minC = minOf(srgb);
     float currentSat = maxC - minC;
@@ -143,12 +140,11 @@ vec3 applyColorGrading(vec3 srgb) {
     return clamp(srgb, 0.0, 1.0);
 }
 
-// Cinematic optical vignette
 vec3 applyVignette(vec3 col, vec2 uv) {
     if (VIGNETTE_STRENGTH <= 0.001) return col;
     vec2 centered = (uv - 0.5) * vec2(aspectRatio * 0.72, 1.0);
     float distSq = dot(centered, centered);
-    float vig = 1.0 - smoothstep(0.28, 1.35, distSq) * VIGNETTE_STRENGTH;
+    float vig = 1.0 - smoothstep(0.32, 1.40, distSq) * VIGNETTE_STRENGTH;
     return col * vig;
 }
 

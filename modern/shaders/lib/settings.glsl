@@ -72,20 +72,20 @@ const int   noiseTextureResolution = 256;
 
 // --- Cloud Options ---
 #define CLOUD_QUALITY        2     // [0 1 2 3]
-#define CLOUD_COVERAGE       0.48  // [0.15 0.30 0.40 0.48 0.58 0.70 0.85]
-#define CLOUD_ALTITUDE       240.0 // [140.0 180.0 210.0 240.0 280.0 340.0]
-#define CLOUD_THICKNESS      110.0 // [60.0 85.0 110.0 140.0 180.0]
+#define CLOUD_COVERAGE       0.42  // [0.15 0.30 0.42 0.50 0.60 0.72 0.85]
+#define CLOUD_ALTITUDE       260.0 // [140.0 180.0 220.0 260.0 300.0 360.0]
+#define CLOUD_THICKNESS      125.0 // [60.0 90.0 125.0 155.0 190.0]
 #define CLOUD_SPEED          1.00  // [0.00 0.50 1.00 1.50 2.00 3.00]
 #define CIRRUS_CLOUDS              // High-altitude wispy cirrus clouds
 
 // --- Water & Reflection Options ---
 #define WATER_QUALITY          2    // [1 2 3]
 #define REFLECTION_QUALITY     2    // [0 1 2 3]
-#define WATER_WAVE_HEIGHT      1.00 // [0.30 0.60 0.80 1.00 1.25 1.50]
-#define WATER_CLARITY          1.00 // [0.40 0.70 1.00 1.30 1.65 2.00]
+#define WATER_WAVE_HEIGHT      0.85 // [0.30 0.60 0.85 1.00 1.25 1.50]
+#define WATER_CLARITY          1.15 // [0.40 0.70 1.00 1.15 1.50 2.00]
 #define WATER_CAUSTICS              // Animated sunlight caustics on underwater terrain
 #define RAIN_RIPPLES                // Animated raindrop rings on water surfaces
-#define UNDERWATER_FOG_DENSITY 1.00 // [0.35 0.65 1.00 1.35 1.75]
+#define UNDERWATER_FOG_DENSITY 0.90 // [0.35 0.65 0.90 1.25 1.65]
 
 // --- Vegetation Options ---
 #define WAVING_FOLIAGE       1    // [0 1]
@@ -95,16 +95,16 @@ const int   noiseTextureResolution = 256;
 #define WAVING_CROPS              // Enable crop, vine, and kelp animation
 
 // --- Post-Processing Options ---
-#define TONEMAP_OPERATOR     0    // [0 1 2 3]
-#define EXPOSURE             1.05 // [0.60 0.75 0.90 1.05 1.20 1.35 1.55]
+#define TONEMAP_OPERATOR     2    // [0 1 2 3]
+#define EXPOSURE             1.12 // [0.60 0.75 0.90 1.00 1.12 1.25 1.45]
 #define AUTO_EXPOSURE             // Smooth luminance-adaptive exposure
 #define BLOOM_QUALITY        2    // [0 1 2]
-#define BLOOM_STRENGTH       0.14 // [0.00 0.06 0.10 0.14 0.20 0.28 0.40]
-#define CONTRAST             1.04 // [0.85 0.92 1.00 1.04 1.10 1.18 1.25]
-#define SATURATION           1.03 // [0.75 0.88 0.96 1.03 1.10 1.18 1.28]
-#define VIBRANCE             0.08 // [-0.20 -0.10 0.00 0.08 0.16 0.25]
+#define BLOOM_STRENGTH       0.12 // [0.00 0.06 0.12 0.18 0.26 0.36]
+#define CONTRAST             1.02 // [0.85 0.92 1.00 1.02 1.08 1.16 1.24]
+#define SATURATION           1.05 // [0.75 0.88 0.98 1.05 1.12 1.20 1.30]
+#define VIBRANCE             0.12 // [-0.20 -0.10 0.00 0.12 0.20 0.28]
 #define COLOR_TEMP           0.00 // [-0.30 -0.20 -0.10 0.00 0.10 0.20 0.30]
-#define VIGNETTE_STRENGTH    0.16 // [0.00 0.08 0.16 0.26 0.38 0.50]
+#define VIGNETTE_STRENGTH    0.10 // [0.00 0.06 0.10 0.20 0.32 0.45]
 #define DOF_ENABLED          0    // [0 1]
 #define DOF_STRENGTH         0.50 // [0.15 0.30 0.50 0.75 1.00]
 #define MOTION_BLUR_ENABLED  0    // [0 1]
