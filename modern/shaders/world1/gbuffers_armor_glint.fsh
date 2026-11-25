@@ -1,3 +1,3 @@
 #version 330 compatibility
 #define DIMENSION_END
-#include "/program/gbuffers_emissive.fsh"
+#include "/program/gbuffers_armor_glint.fsh"

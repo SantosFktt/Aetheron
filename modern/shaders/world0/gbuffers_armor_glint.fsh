@@ -1,3 +1,3 @@
 #version 330 compatibility
 #define DIMENSION_OVERWORLD
-#include "/program/gbuffers_emissive.fsh"
+#include "/program/gbuffers_armor_glint.fsh"

@@ -153,8 +153,24 @@ def check_legacy_constraints(shaders_root: Path, expanded: str, rel_path: str) -
     return errors
 
 
+def find_glslang() -> str:
+    """Locate the glslang compiler (named glslangValidator or glslang depending on the distribution)."""
+    import shutil
+    for name in ("glslangValidator", "glslang"):
+        path = shutil.which(name)
+        if path:
+            return path
+    raise SystemExit("ERROR: glslangValidator/glslang not found in PATH. Install glslang (e.g. `scoop install glslang`).")
+
+
+GLSLANG_BIN = None
+
+
 def compile_shader(expanded_source: str, ext: str, label: str) -> Tuple[bool, str]:
     """Compile expanded GLSL source with glslangValidator."""
+    global GLSLANG_BIN
+    if GLSLANG_BIN is None:
+        GLSLANG_BIN = find_glslang()
     stage = "vert" if ext == ".vsh" else "frag"
     with tempfile.NamedTemporaryFile("w", suffix=f".{stage}", delete=False, encoding="utf-8") as tmp:
         tmp.write(expanded_source)
@@ -162,7 +178,7 @@ def compile_shader(expanded_source: str, ext: str, label: str) -> Tuple[bool, st
 
     try:
         proc = subprocess.run(
-            ["glslangValidator", "-S", stage, tmp_path],
+            [GLSLANG_BIN, "-S", stage, tmp_path],
             capture_output=True,
             text=True,
             check=False,

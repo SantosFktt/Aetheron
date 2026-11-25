@@ -1,0 +1,217 @@
+# ==============================================================================
+# AETHERON SHADERS — Localização em Português do Brasil (Edição Moderna)
+# ==============================================================================
+
+profile.LOW=Baixo (Desempenho)
+profile.MEDIUM=Médio (Equilibrado)
+profile.ULTRA=Ultra (Próxima Geração RTX)
+profile.comment=Selecione um predefinido de qualidade geral. Baixo maximiza a taxa de quadros, Médio equilibra qualidade e desempenho, e Ultra libera nuvens volumétricas completas, sombras 4K PCSS, iluminação indireta SSIL e reflexos de água premium (projetado para RTX 5070 / GPUs high-end). Opções individuais podem ser ajustadas livremente após selecionar um predefinido.
+
+# Telas
+screen.LIGHTING=Iluminação e Materiais
+screen.SHADOWS=Sombras
+screen.ATMOSPHERE=Atmosfera e Névoa
+screen.CLOUDS=Nuvens Volumétricas
+screen.WATER=Água e Reflexos
+screen.VEGETATION=Vegetação e Vento
+screen.POST_PROCESSING=Pós-Processamento e Cor
+screen.PERFORMANCE=Desempenho e Anti-Aliasing
+
+# Iluminação
+option.SUN_INTENSITY=Intensidade da Luz Solar
+option.SUN_INTENSITY.comment=Controla a luminância solar direta no Overworld.
+option.MOON_INTENSITY=Intensidade da Luz Lunar
+option.MOON_INTENSITY.comment=Controla a iluminação noturna modulada pela fase lunar atual.
+option.AMBIENT_INTENSITY=Intensidade do Céu Ambiente
+option.AMBIENT_INTENSITY.comment=Ajusta a iluminação indireta de preenchimento do hemisfério do céu em áreas sombreadas.
+option.BLOCKLIGHT_INTENSITY=Intensidade da Luz de Blocos
+option.BLOCKLIGHT_INTENSITY.comment=Controla o brilho de tochas, lanternas, lava e fontes de luz artificiais.
+option.BLOCKLIGHT_TEMP=Calor da Luz de Blocos
+option.BLOCKLIGHT_TEMP.comment=Altera a temperatura de cor da luz artificial (menor = luz de vela mais quente, maior = halogênio neutro).
+option.EMISSIVE_INTENSITY=Brilho Emissivo
+option.EMISSIVE_INTENSITY.comment=Controla a luminância de minérios brilhantes, lanternas, lava, sculk, froglights e fogo de alma.
+option.CAVE_BRIGHTNESS=Ambiente Natural de Cavernas
+option.CAVE_BRIGHTNESS.comment=Luz ambiente mínima em cavernas profundas para exploração realista e jogável.
+option.SSIL_QUALITY=Iluminação Indireta em Espaço de Tela (SSIL)
+option.SSIL_QUALITY.comment=Calcula iluminação global difusa colorida de salto único em espaço de tela.
+value.SSIL_QUALITY.0=Desligado
+value.SSIL_QUALITY.1=Equilibrado
+value.SSIL_QUALITY.2=Ultra (Aproximação Multi-Salto)
+option.BIOME_LIGHTING=Iluminação Consciente de Bioma
+option.BIOME_LIGHTING.comment=Adapta sutilmente o calor da luz solar, tonalidade do céu e neblina para desertos, picos gelados, pântanos e oceanos.
+option.WEATHER_PUDDLES=Umidade e Poças de Chuva
+option.WEATHER_PUDDLES.comment=Adiciona escurecimento de superfícies molhadas e poças reflexivas em terrenos expostos durante tempestades.
+
+# Sombras
+option.SHADOW_QUALITY=Qualidade do Filtro de Sombras
+option.SHADOW_QUALITY.comment=Seleciona o algoritmo de filtro de sombras. Ultra usa PCSS de penumbra variável com amostragem de disco Vogel.
+value.SHADOW_QUALITY.1=Baixo (PCF Rápido)
+value.SHADOW_QUALITY.2=Médio (PCF Vogel Suave)
+value.SHADOW_QUALITY.3=Ultra (PCSS Penumbra Variável)
+option.shadowMapResolution=Resolução das Sombras
+option.shadowMapResolution.comment=Resolução do mapa de sombras direcional. Valores maiores entregam bordas de sombra mais nítidas.
+value.shadowMapResolution.1024=1024 (Baixo)
+value.shadowMapResolution.2048=2048 (Médio)
+value.shadowMapResolution.3072=3072 (Alto)
+value.shadowMapResolution.4096=4096 (Ultra)
+option.shadowDistance=Distância das Sombras
+option.shadowDistance.comment=Alcance máximo de projeção de sombras em blocos.
+suffix.shadowDistance= blocos
+option.SHADOW_SOFTNESS=Suavidade das Sombras
+option.SHADOW_SOFTNESS.comment=Escala o raio de penumbra do filtro para sombras direcionais.
+option.CONTACT_SHADOWS=Sombras de Contato em Espaço de Tela
+option.CONTACT_SHADOWS.comment=Traça raios curtos em espaço de tela para assentar grama, blocos pequenos e beirais onde mapas de sombra carecem de resolução.
+value.CONTACT_SHADOWS.0=Desligado
+value.CONTACT_SHADOWS.1=Ligado
+option.COLORED_SHADOWS=Sombras Coloridas Translúcidas
+option.COLORED_SHADOWS.comment=Vidro colorido e blocos translúcidos tingidos projetam raios de luz coloridos.
+option.FOLIAGE_SSS=Subsuperfície de Folhagem (SSS)
+option.FOLIAGE_SSS.comment=Simula luz solar transmitindo-se calorosamente através de folhas, grama e plantações.
+
+# Atmosfera e Névoa
+option.ATMOSPHERE_DENSITY=Espalhamento Atmosférico
+option.ATMOSPHERE_DENSITY.comment=Controla a intensidade do espalhamento Rayleigh e Mie no céu e perspectiva aérea.
+option.VOLUMETRIC_FOG_QUALITY=Qualidade da Névoa Volumétrica
+option.VOLUMETRIC_FOG_QUALITY.comment=Controla a qualidade do raymarching para névoa volumétrica e raios crepusculares (god rays).
+value.VOLUMETRIC_FOG_QUALITY.0=Desligado
+value.VOLUMETRIC_FOG_QUALITY.1=Baixo (Rápido)
+value.VOLUMETRIC_FOG_QUALITY.2=Médio (Equilibrado)
+value.VOLUMETRIC_FOG_QUALITY.3=Ultra (Alto Detalhe)
+option.VOLUMETRIC_FOG_DENSITY=Densidade da Névoa Volumétrica
+option.VOLUMETRIC_FOG_DENSITY.comment=Controla a densidade de espalhamento de luz volumétrica no ar. Mantenha equilibrado para preservar vistas claras.
+option.HEIGHT_FOG_DENSITY=Neblina de Vale por Altura
+option.HEIGHT_FOG_DENSITY.comment=Neblina atmosférica rasteira acumulando-se em vales, rios e manhãs.
+option.DISTANCE_FOG_DENSITY=Perspectiva Atmosférica
+option.DISTANCE_FOG_DENSITY.comment=Espalhamento aéreo sutil que dá às montanhas distantes profundidade atmosférica realista.
+option.GOD_RAYS=Raios Crepusculares (God Rays)
+option.GOD_RAYS.comment=Habilita raios de luz solar atravessando árvores, cavernas e silhuetas de montanhas.
+value.GOD_RAYS.0=Desligado
+value.GOD_RAYS.1=Ligado
+option.GOD_RAY_STRENGTH=Intensidade dos God Rays
+option.GOD_RAY_STRENGTH.comment=Controla o brilho dos raios de luz espalhados para frente.
+option.STAR_BRIGHTNESS=Brilho do Campo Estelar
+option.STAR_BRIGHTNESS.comment=Ajusta a visibilidade de estrelas procedurais multi-camada e da faixa da Via Láctea à noite.
+option.MOON_SIZE=Escala Angular da Lua
+option.MOON_SIZE.comment=Ajusta o tamanho visual do disco lunar sombreado.
+
+# Nuvens
+option.CLOUD_QUALITY=Qualidade das Nuvens Volumétricas
+option.CLOUD_QUALITY.comment=Baixo usa nuvens analíticas rápidas; Médio usa raymarching volumétrico otimizado; Ultra usa raymarching 3D multi-camada com auto-sombreamento e espalhamento powder.
+value.CLOUD_QUALITY.0=Desligado
+value.CLOUD_QUALITY.1=Baixo (Camada Analítica 2D)
+value.CLOUD_QUALITY.2=Médio (Volumétrico)
+value.CLOUD_QUALITY.3=Ultra (Volumétrico 3D Multi-Camada)
+option.CLOUD_COVERAGE=Cobertura de Nuvens
+option.CLOUD_COVERAGE.comment=Cobertura base de nuvens em tempo bom (tempestades aumentam dinamicamente a cobertura).
+option.CLOUD_ALTITUDE=Altitude das Nuvens
+option.CLOUD_ALTITUDE.comment=Altura base do deck de nuvens em blocos do mundo.
+suffix.CLOUD_ALTITUDE=m
+option.CLOUD_THICKNESS=Espessura das Nuvens
+option.CLOUD_THICKNESS.comment=Espessura vertical de formações de nuvens cumulus.
+suffix.CLOUD_THICKNESS=m
+option.CLOUD_SPEED=Velocidade do Vento das Nuvens
+option.CLOUD_SPEED.comment=Velocidade de movimento de formações de nuvens à deriva.
+option.CIRRUS_CLOUDS=Camada Cirrus de Alta Altitude
+option.CIRRUS_CLOUDS.comment=Adiciona nuvens cirrus etéreas na troposfera superior que capturam luz do nascer e pôr do sol.
+
+# Água
+option.WATER_QUALITY=Qualidade do Sombreamento da Água
+option.WATER_QUALITY.comment=Controla detalhe de ondas, absorção espectral Beer-Lambert, refração e espalhamento subaquático.
+value.WATER_QUALITY.1=Baixo (Ondas Leves)
+value.WATER_QUALITY.2=Médio (Ondas Detalhadas + Refração)
+value.WATER_QUALITY.3=Ultra (Ondas Multi-Oitava + Profundidade Óptica Completa)
+option.REFLECTION_QUALITY=Qualidade dos Reflexos da Água
+option.REFLECTION_QUALITY.comment=Controla contagem de passos de reflexo em espaço de tela (SSR) e refinamento de busca binária.
+value.REFLECTION_QUALITY.0=Apenas Céu
+value.REFLECTION_QUALITY.1=Baixo (SSR Rápido)
+value.REFLECTION_QUALITY.2=Médio (SSR Refinado)
+value.REFLECTION_QUALITY.3=Ultra (SSR Alta Precisão + Fallback Céu/Nuvens)
+option.WATER_WAVE_HEIGHT=Amplitude das Ondas
+option.WATER_WAVE_HEIGHT.comment=Controla a inclinação das normais das ondas na superfície.
+option.WATER_CLARITY=Clareza da Água
+option.WATER_CLARITY.comment=Valores maiores tornam a água mais clara e permitem ver mais fundo subaquaticamente.
+option.WATER_CAUSTICS=Caustics Subaquáticos
+option.WATER_CAUSTICS.comment=Projeta padrões animados de caustics solares no terreno submerso.
+option.RAIN_RIPPLES=Ondulações de Chuva na Superfície
+option.RAIN_RIPPLES.comment=Adiciona impactos concêntricos animados de gotas de chuva em superfícies de água expostas durante chuva.
+option.UNDERWATER_FOG_DENSITY=Densidade da Névoa Subaquática
+option.UNDERWATER_FOG_DENSITY.comment=Controla a visibilidade subaquática e tonalidade de profundidade quando submerso.
+
+# Vegetação
+option.WAVING_FOLIAGE=Animação de Vento na Vegetação
+option.WAVING_FOLIAGE.comment=Interruptor mestre para simulação de vento por vértice na vegetação.
+value.WAVING_FOLIAGE.0=Desligado
+value.WAVING_FOLIAGE.1=Ligado
+option.WIND_STRENGTH=Força do Vento
+option.WIND_STRENGTH.comment=Amplitude de rajadas de vento (intensifica automaticamente durante chuva e tempestades).
+option.WAVING_LEAVES=Folhas de Árvores Balançando
+option.WAVING_LEAVES.comment=Habilita tremulação sutil do vento nas copas das árvores.
+option.WAVING_GRASS=Grama e Flores Balançando
+option.WAVING_GRASS.comment=Habilita movimento de balanço natural em grama, samambaias e flores.
+option.WAVING_CROPS=Plantações e Vinhas Balançando
+option.WAVING_CROPS.comment=Habilita balanço do vento em plantações de fazenda, cana-de-açúcar, vinhas e kelp subaquático.
+
+# Pós-Processamento
+option.TONEMAP_OPERATOR=Curva de Tonemapping
+option.TONEMAP_OPERATOR.comment=Seleciona a transformação de exibição filmica HDR-para-SDR.
+value.TONEMAP_OPERATOR.0=ACES Filmic (Cinemático)
+value.TONEMAP_OPERATOR.1=AgX Neutro (Destaques Naturais)
+value.TONEMAP_OPERATOR.2=Aetheron Filmic (Photon x Bliss)
+value.TONEMAP_OPERATOR.3=Uncharted 2 Filmic
+option.EXPOSURE=Exposição Manual
+option.EXPOSURE.comment=Multiplicador de exposição geral da cena.
+option.AUTO_EXPOSURE=Auto-Exposição Adaptativa
+option.AUTO_EXPOSURE.comment=Adapta suavemente a exposição do olho entre luz solar externa brilhante e cavernas escuras.
+option.BLOOM_QUALITY=Qualidade do Bloom
+option.BLOOM_QUALITY.comment=Bloom suave multi-escala ponderado por Karis ao redor do sol, brilhos especulares e blocos emissivos.
+value.BLOOM_QUALITY.0=Desligado
+value.BLOOM_QUALITY.1=Rápido (Escala Única)
+value.BLOOM_QUALITY.2=Premium (Karis Bloom Dual-Escala)
+option.BLOOM_STRENGTH=Intensidade do Bloom
+option.BLOOM_STRENGTH.comment=Controla a força do brilho cinematográfico sutil.
+option.CONTRAST=Contraste
+option.CONTRAST.comment=Ajusta finamente o contraste da curva-S filmica.
+option.SATURATION=Saturação
+option.SATURATION.comment=Multiplicador de saturação de cor geral.
+option.VIBRANCE=Vibrance
+option.VIBRANCE.comment=Enriquece seletivamente cores suaves sem sobresaturar tons já vibrantes.
+option.COLOR_TEMP=Temperatura de Cor
+option.COLOR_TEMP.comment=Altera o balanço de branco geral (negativo = mais frio, positivo = mais quente).
+option.VIGNETTE_STRENGTH=Vinheta
+option.VIGNETTE_STRENGTH.comment=Escurecimento sutil das bordas para enquadramento cinematográfico.
+option.DOF_ENABLED=Profundidade de Campo
+option.DOF_ENABLED.comment=Bokeh cinematográfico opcional de Profundidade de Campo focado no alvo da mira.
+value.DOF_ENABLED.0=Desligado
+value.DOF_ENABLED.1=Ligado
+option.DOF_STRENGTH=Força da Profundidade de Campo
+option.DOF_STRENGTH.comment=Controla o raio de desfoque de abertura quando Profundidade de Campo está habilitada.
+option.MOTION_BLUR_ENABLED=Motion Blur da Câmera
+option.MOTION_BLUR_ENABLED.comment=Motion blur sutil opcional baseado em velocidade da câmera.
+value.MOTION_BLUR_ENABLED.0=Desligado
+value.MOTION_BLUR_ENABLED.1=Ligado
+option.MOTION_BLUR_STRENGTH=Força do Motion Blur
+option.MOTION_BLUR_STRENGTH.comment=Controla a intensidade do desfoque de velocidade do obturador.
+option.CAS_SHARPENING=Nitidez Adaptativa de Contraste (CAS)
+option.CAS_SHARPENING.comment=Nitidez estilo AMD FidelityFX CAS para restaurar detalhe de textura nítido após TAA.
+value.CAS_SHARPENING.0=Desligado
+value.CAS_SHARPENING.1=Ligado
+option.CAS_STRENGTH=Força da Nitidez
+option.CAS_STRENGTH.comment=Controla a quantidade de nitidez CAS (evite super-nitidez).
+
+# Desempenho
+option.AO_QUALITY=Qualidade da Oclusão Ambiente
+option.AO_QUALITY.comment=Oclusão ambiente de horizonte em espaço de tela (inspirado em GTAO) para sombreamento de fendas realista.
+value.AO_QUALITY.0=Desligado
+value.AO_QUALITY.1=Baixo (Rápido 4-Amostras)
+value.AO_QUALITY.2=Médio (Equilibrado 8-Amostras)
+value.AO_QUALITY.3=Ultra (Multi-Horizonte 12-Amostras)
+option.AO_STRENGTH=Força da Oclusão Ambiente
+option.AO_STRENGTH.comment=Intensidade do escurecimento de contato em fendas.
+option.TAA_ENABLED=Anti-Aliasing Temporal (TAA)
+option.TAA_ENABLED.comment=Elimina cintilação de folhagem e aliasing geométrico usando reprojeção temporal YCoCg com clamp de variância.
+value.TAA_ENABLED.0=Desligado
+value.TAA_ENABLED.1=Ligado
+option.ADAPTIVE_RAYMARCHING=Raymarching Adaptativo
+option.ADAPTIVE_RAYMARCHING.comment=Habilita terminação precoce de transmitância e adaptação de tamanho de passo em nuvens e névoa volumétrica para maior FPS.
+option.DITHERING_ENABLED=Dithering Anti-Banding
+option.DITHERING_ENABLED.comment=Aplica dithering de PDF triangular para eliminar banding de cor de 8 bits no céu e névoa.

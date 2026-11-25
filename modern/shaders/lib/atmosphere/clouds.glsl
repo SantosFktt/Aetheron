@@ -44,13 +44,18 @@ float sampleCloudDensity(vec3 worldPos, float baseAlt, float thickness, float co
     float clusterMask = smoothstep(0.28, 0.74, macroMap);
     float anvilFactor = smoothstep(0.55, 0.88, macroMap + getStormMix() * 0.35);
 
+    float heightMask = cloudHeightGradient(hNorm, anvilFactor);
+    float localCov = clamp(coverage * (0.55 + 0.85 * clusterMask), 0.0, 0.98);
+
+    // Exact early-out: perlinWorley <= 1, so if the height mask alone cannot exceed the
+    // coverage threshold this sample is guaranteed empty. Skips all 3D noise in clear sky.
+    if (heightMask <= 1.0 - localCov) return 0.0;
+
     // Primary 3D billow shape: blend smooth FBM with cellular Worley domes for genuine fluffy cloud shapes
     float baseFbm    = fbm3D(vec3(p.x, p.y * 1.15, p.z) * 1.15, 3);
     float baseWorley = worleyBillow3D(vec3(p.x, p.y * 1.05, p.z) * 1.45);
     float perlinWorley = remapClamped(baseFbm, (1.0 - baseWorley) * 0.36, 1.0, 0.0, 1.0);
 
-    float heightMask = cloudHeightGradient(hNorm, anvilFactor);
-    float localCov = clamp(coverage * (0.55 + 0.85 * clusterMask), 0.0, 0.98);
     float shape = remapClamped(perlinWorley * heightMask, 1.0 - localCov, 1.0, 0.0, 1.0);
     if (shape <= 0.002) return 0.0;
 

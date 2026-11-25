@@ -68,15 +68,7 @@ vec3 computeHandheldLight(vec3 playerPos, vec3 worldNormal) {
     return lightColor * atten * wrapNdotL * 1.35 * BLOCKLIGHT_INTENSITY;
 }
 
-vec3 computeBlocklight(float blockLight, vec3 worldPos) {
-    if (blockLight <= 0.002) return vec3(0.0);
-
-    float falloff = pow(blockLight, 2.3) * 0.72 + pow(blockLight, 4.8) * 1.40;
-    float flicker = 1.0 + 0.022 * sin(frameTimeCounter * 5.2 + worldPos.x * 1.7 + worldPos.z * 2.3);
-    vec3 tempCol = blackbodyColor(float(BLOCKLIGHT_TEMP));
-
-    return tempCol * falloff * flicker * 1.75 * BLOCKLIGHT_INTENSITY;
-}
+#include "/lib/lighting/blocklight.glsl"
 
 vec3 computeEmissiveRadiance(vec3 albedoLinear, int matId, float emissiveMask) {
     if (emissiveMask <= 0.01) return vec3(0.0);
